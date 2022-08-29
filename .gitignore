@@ -4,4 +4,5 @@ bin/
 lib/
 __pycache__
 pyvenv.cfg
-
+include/
+requirements.txt
