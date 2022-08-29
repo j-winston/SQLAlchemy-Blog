@@ -66,6 +66,11 @@ def contact():
     return render_template("contact.html")
 
 
+@app.route("/make_post", methods=['GET', 'POST'])
+def make_post():
+    return render_template("make-post.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)
