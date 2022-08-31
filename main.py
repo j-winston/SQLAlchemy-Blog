@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -66,9 +66,20 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/make_post", methods=['GET', 'POST'])
-def make_post():
+@app.route("/edit-post/<post_id>", methods=['GET', 'POST'])
+def edit_post(post_id):
+    return render_template("make-post.html", post_id=post_id)
+
+
+@app.route("/new-post", methods=['GET', 'POST'])
+def new_post():
     return render_template("make-post.html")
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
