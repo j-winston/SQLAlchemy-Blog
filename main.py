@@ -87,8 +87,8 @@ def edit_post(post_id):
         blog_post.img_url = request.form['img_url']
         blog_post.body = request.form['body']
         db.session.commit()
-        
-        return "<h1>Post Updated<h1>"
+
+        return redirect("/")
 
 
 @app.route("/new-post", methods=['GET', 'POST'])
@@ -97,9 +97,12 @@ def new_post():
     return render_template("make-post.html", new_form=new_form)
 
 
-
-
-
+@app.route("/delete/<post_id>")
+def delete(post_id):
+    post = BlogPost.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect("/")
 
 
 
