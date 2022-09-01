@@ -1,5 +1,5 @@
 {% extends 'bootstrap/base.html' %}
-
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block content %}
 {% include "header.html" %}
   <!-- Page Header -->
@@ -9,9 +9,9 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            {% if post_id %}
+            {% if edit_form %}
               <h1>Edit Post</h1>
-            {% else %}
+            {% elif new_form %}
               <h1>New Post</h1>
             {% endif %}
             <span class="subheading">You're going to make a great blog post!</span>
@@ -26,6 +26,14 @@
       <div class="col-lg-8 col-md-10 mx-auto">
 
           <!-- This is where the form will go -->
+        <form action="" method="post">
+          {% if new_form %}
+            {{ wtf.quick_form(form) }}
+          {% elif edit_form %}
+            {{ wtf.quick_form(edit_form) }}
+          {% endif %}
+        </form>
+
 
       </div>
     </div>

@@ -68,12 +68,33 @@ def contact():
 
 @app.route("/edit-post/<post_id>", methods=['GET', 'POST'])
 def edit_post(post_id):
-    return render_template("make-post.html", post_id=post_id)
+    # Show blog post
+    if request.method == 'GET':
+        blog_post = BlogPost.query.get(post_id)
+        edit_form = CreatePostForm()
+        edit_form.title.data = blog_post.title
+        edit_form.subtitle.data = blog_post.subtitle
+        edit_form.author.data = blog_post.author
+        edit_form.img_url.data = blog_post.img_url
+        edit_form.body.data = blog_post.body
+        return render_template("make-post.html", post=blog_post, edit_form=edit_form)
+    # For updating blog post
+    elif request.method == 'POST':
+        blog_post = BlogPost.query.get(post_id)
+        blog_post.author = request.form['author']
+        blog_post.title = request.form['title']
+        blog_post.subtitle = request.form['subtitle']
+        blog_post.img_url = request.form['img_url']
+        blog_post.body = request.form['body']
+        db.session.commit()
+        
+        return "<h1>Post Updated<h1>"
 
 
 @app.route("/new-post", methods=['GET', 'POST'])
 def new_post():
-    return render_template("make-post.html")
+    new_form = CreatePostForm()
+    return render_template("make-post.html", new_form=new_form)
 
 
 
